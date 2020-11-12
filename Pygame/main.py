@@ -6,10 +6,6 @@ win = pygame.display.set_mode((750, 900,))
 pygame.display.set_caption("Fist Window")
 
 
-walkRight = [pygame.image.load('correr_0.png'), pygame.image.load('correr_1.png'), pygame.image.load('correr_2.png'), pygame.image.load('correr_3.png'), pygame.image.load('correr_4.png'), pygame.image.load('correr_5.png'), pygame.image.load('correr_6.png'), pygame.image.load('correr_7.png'), pygame.image.load('correr_8.png')]
-walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
-bg = pygame.image.load('bg.jpg')
-char = pygame.image.load('standing.png')
 
 
 x=50
@@ -24,6 +20,8 @@ left = False
 rigth = False
 walk= False
 walkCount = 0
+
+
 
 
 
