@@ -6,22 +6,22 @@ win = pygame.display.set_mode((500, 480))
 
 pygame.display.set_caption("First Game")
 
-walkRight = [pygame.image.load('correr_1.png'), pygame.image.load('correr_2.png'), pygame.image.load('correr_3.png'),
-             pygame.image.load('correr_4.png'), pygame.image.load('correr_5.png'), pygame.image.load('correr_6.png'),
-             pygame.image.load('correr_7.png'), pygame.image.load('correr_8.png')]
-walkLeft = [pygame.image.load('correr_1.png'), pygame.image.load('correr_2.png'), pygame.image.load('correr_3.png'),
-             pygame.image.load('correr_4.png'), pygame.image.load('correr_5.png'), pygame.image.load('correr_6.png'),
-             pygame.image.load('correr_7.png'), pygame.image.load('correr_8.png')]
-bg = pygame.image.load('bg.jpg')
-char = pygame.image.load('caminar_0.png')
+walkRight = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.image.load('Recursos/Sprittes correr/correr_2.png'), pygame.image.load('Recursos/Sprittes correr/correr_3.png'),
+             pygame.image.load('Recursos/Sprittes correr/correr_4.png'), pygame.image.load('Recursos/Sprittes correr/correr_5.png'), pygame.image.load('Recursos/Sprittes correr/correr_6.png'),
+             pygame.image.load('Recursos/Sprittes correr/correr_7.png'), pygame.image.load('Recursos/Sprittes correr/correr_8.png')]
+walkLeft = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.image.load('Recursos/Sprittes correr/correr_2.png'), pygame.image.load('Recursos/Sprittes correr/correr_3.png'),
+             pygame.image.load('Recursos/Sprittes correr/correr_4.png'), pygame.image.load('Recursos/Sprittes correr/correr_5.png'), pygame.image.load('Recursos/Sprittes correr/correr_6.png'),
+             pygame.image.load('Recursos/Sprittes correr/correr_7.png'), pygame.image.load('Recursos/Sprittes correr/correr_8.png')]
+bg = pygame.image.load('Recursos/Brinco.png')
+#char = pygame.image.load('standing.png')
 
 clock = pygame.time.Clock()
 
-bulletSound = pygame.mixer.Sound('bullet.wav')
-hitSound = pygame.mixer.Sound('hit.wav')
+#bulletSound = pygame.mixer.Sound('bullet.wav')
+#hitSound = pygame.mixer.Sound('hit.wav')
 
-music = pygame.mixer.music.load('music.mp3')
-pygame.mixer.music.play(-1)
+#music = pygame.mixer.music.load('music.mp3')
+#pygame.mixer.music.play(-1)
 
 score = 0
 
@@ -94,14 +94,14 @@ class projectile(object):
 
 
 class enemy(object):
-    walkRight = [pygame.image.load('R1E.png'), pygame.image.load('R2E.png'), pygame.image.load('R3E.png'),
-                 pygame.image.load('R4E.png'), pygame.image.load('R5E.png'), pygame.image.load('R6E.png'),
-                 pygame.image.load('R7E.png'), pygame.image.load('R8E.png'), pygame.image.load('R9E.png'),
-                 pygame.image.load('R10E.png'), pygame.image.load('R11E.png')]
-    walkLeft = [pygame.image.load('L1E.png'), pygame.image.load('L2E.png'), pygame.image.load('L3E.png'),
-                pygame.image.load('L4E.png'), pygame.image.load('L5E.png'), pygame.image.load('L6E.png'),
-                pygame.image.load('L7E.png'), pygame.image.load('L8E.png'), pygame.image.load('L9E.png'),
-                pygame.image.load('L10E.png'), pygame.image.load('L11E.png')]
+    walkRight = [pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png')]
+    walkLeft = [pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
+                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png')]
 
     def __init__(self, x, y, width, height, end):
         self.x = x
@@ -198,7 +198,7 @@ while run:
             1]:
             if bullet.x + bullet.radius > goblin.hitbox[0] and bullet.x - bullet.radius < goblin.hitbox[0] + \
                     goblin.hitbox[2]:
-                hitSound.play()
+                #hitSound.play()
                 goblin.hit()
                 score += 1
                 bullets.pop(bullets.index(bullet))
@@ -211,7 +211,7 @@ while run:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_SPACE] and shootLoop == 0:
-        bulletSound.play()
+        #bulletSound.play()
         if man.left:
             facing = -1
         else:
