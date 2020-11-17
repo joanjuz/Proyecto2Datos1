@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 
-win = pygame.display.set_mode((500, 480))
+win = pygame.display.set_mode((1900, 1000))
 
 pygame.display.set_caption("First Game")
 
@@ -12,7 +12,7 @@ walkRight = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.
 walkLeft = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.image.load('Recursos/Sprittes correr/correr_2.png'), pygame.image.load('Recursos/Sprittes correr/correr_3.png'),
              pygame.image.load('Recursos/Sprittes correr/correr_4.png'), pygame.image.load('Recursos/Sprittes correr/correr_5.png'), pygame.image.load('Recursos/Sprittes correr/correr_6.png'),
              pygame.image.load('Recursos/Sprittes correr/correr_7.png'), pygame.image.load('Recursos/Sprittes correr/correr_8.png')]
-bg = pygame.image.load('Recursos/Brinco.png')
+bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #char = pygame.image.load('standing.png')
 
 clock = pygame.time.Clock()
