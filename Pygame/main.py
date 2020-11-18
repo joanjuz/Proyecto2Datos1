@@ -6,12 +6,12 @@ win = pygame.display.set_mode((1900, 1000))
 
 pygame.display.set_caption("First Game")
 
-walkRight = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.image.load('Recursos/Sprittes correr/correr_2.png'), pygame.image.load('Recursos/Sprittes correr/correr_3.png'),
-             pygame.image.load('Recursos/Sprittes correr/correr_4.png'), pygame.image.load('Recursos/Sprittes correr/correr_5.png'), pygame.image.load('Recursos/Sprittes correr/correr_6.png'),
-             pygame.image.load('Recursos/Sprittes correr/correr_7.png'), pygame.image.load('Recursos/Sprittes correr/correr_8.png')]
-walkLeft = [pygame.image.load('Recursos/Sprittes correr/correr_1.png'), pygame.image.load('Recursos/Sprittes correr/correr_2.png'), pygame.image.load('Recursos/Sprittes correr/correr_3.png'),
-             pygame.image.load('Recursos/Sprittes correr/correr_4.png'), pygame.image.load('Recursos/Sprittes correr/correr_5.png'), pygame.image.load('Recursos/Sprittes correr/correr_6.png'),
-             pygame.image.load('Recursos/Sprittes correr/correr_7.png'), pygame.image.load('Recursos/Sprittes correr/correr_8.png')]
+walkRight = [pygame.image.load('Recursos/Sprittes correr/R1.png'), pygame.image.load('Recursos/Sprittes correr/R2.png'), pygame.image.load('Recursos/Sprittes correr/R3.png'),
+             pygame.image.load('Recursos/Sprittes correr/R4.png'), pygame.image.load('Recursos/Sprittes correr/R5.png'), pygame.image.load('Recursos/Sprittes correr/R6.png'),
+             pygame.image.load('Recursos/Sprittes correr/R7.png'), pygame.image.load('Recursos/Sprittes correr/R8.png'),pygame.image.load("Recursos/Sprittes correr/R9.png")]
+walkLeft = [pygame.image.load('Recursos/Sprittes correr/L1.png'), pygame.image.load('Recursos/Sprittes correr/L2.png'), pygame.image.load('Recursos/Sprittes correr/L3.png'),
+             pygame.image.load('Recursos/Sprittes correr/L4.png'), pygame.image.load('Recursos/Sprittes correr/L5.png'), pygame.image.load('Recursos/Sprittes correr/L6.png'),
+             pygame.image.load('Recursos/Sprittes correr/L7.png'), pygame.image.load('Recursos/Sprittes correr/L8.png'), pygame.image.load("Recursos/Sprittes correr/L9.png")]
 bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #char = pygame.image.load('standing.png')
 
@@ -94,14 +94,24 @@ class projectile(object):
 
 
 class enemy(object):
-    walkRight = [pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                 pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png')]
-    walkLeft = [pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'),
-                pygame.image.load('Recursos/Sprittes caminar/caminar_0.png'), pygame.image.load('Recursos/Sprittes caminar/caminar_0.png')]
+    walkRight = [pygame.image.load('Recursos/Sprittes correr/R1.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R2.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R3.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R4.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R5.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R6.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R7.png'),
+                 pygame.image.load('Recursos/Sprittes correr/R8.png'),
+                 pygame.image.load("Recursos/Sprittes correr/R9.png")]
+    walkLeft = [pygame.image.load('Recursos/Sprittes correr/L1.png'),
+                pygame.image.load('Recursos/Sprittes correr/L2.png'),
+                pygame.image.load('Recursos/Sprittes correr/L3.png'),
+                pygame.image.load('Recursos/Sprittes correr/L4.png'),
+                pygame.image.load('Recursos/Sprittes correr/L5.png'),
+                pygame.image.load('Recursos/Sprittes correr/L6.png'),
+                pygame.image.load('Recursos/Sprittes correr/L7.png'),
+                pygame.image.load('Recursos/Sprittes correr/L8.png'),
+                pygame.image.load("Recursos/Sprittes correr/L9.png")]
 
     def __init__(self, x, y, width, height, end):
         self.x = x
@@ -119,7 +129,7 @@ class enemy(object):
     def draw(self, win):
         self.move()
         if self.visible:
-            if self.walkCount + 1 >= 33:
+            if self.walkCount + 1 >= 20:
                 self.walkCount = 0
 
             if self.vel > 0:
