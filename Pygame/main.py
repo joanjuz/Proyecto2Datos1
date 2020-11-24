@@ -106,9 +106,18 @@ while run:
         if player1.hitbox[0] + player1.hitbox[2] > player2.hitbox[0] and player1.hitbox[0] < player2.hitbox[0] + player2.hitbox[2]:
             player1.hit = True
             if player1.right == True:
-                player2.x += player2.vel
+                if player2.right == True:
+                    player1.x -= player1.vel
+                    player2.x += player2.vel
+                else:
+                    player2.x += player2.vel
+
             else:
-                player2.x -= player2.vel
+                if player2.right == False:
+                    player1.x += player1.vel
+                    player2.x -= player2.vel
+                else:
+                    player2.x -= player2.vel
         else:
             player1.hit = False
     else:
@@ -117,9 +126,16 @@ while run:
         if player2.hitbox[0] + player2.hitbox[2] > player1.hitbox[0] and player2.hitbox[0] < player1.hitbox[0] + player1.hitbox[2]:
             player2.hit = True
             if player2.right == True:
+                if player1.right == True:
+                    player2.x += player2.vel
+                    player1.x -= player1.vel
                 player1.x += player1.vel
             else:
-                player1.x -= player1.vel
+                if player1.right == False:
+                    player2.x -= player2.vel
+                    player1.x += player1.vel
+                else:
+                    player1.x -= player1.vel
         else:
             player2.hit = False
     else:
