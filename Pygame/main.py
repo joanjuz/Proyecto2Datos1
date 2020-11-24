@@ -36,6 +36,7 @@ class player(object):
         self.isJump = False
         self.left = False
         self.right = False
+        self.hit = False
         self.walkCount = 0
         self.jumpCount = 10
         self.standing = True
@@ -66,24 +67,6 @@ class player(object):
                 self.hitbox = (self.x + 17, self.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
-    def hit(self):
-        self.isJump = False
-        self.jumpCount = 10
-        self.x = 100
-        self.y = 700
-        self.walkCount = 0
-        font1 = pygame.font.SysFont('comicsans', 100)
-        text = font1.render('-5', 1, (255, 0, 0))
-        win.blit(text, (250 - (text.get_width() / 2), 200))
-        pygame.display.update()
-        i = 0
-        while i < 200:
-            pygame.time.delay(10)
-            i += 1
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    i = 201
-                    pygame.quit()
 
 
 class projectile(object):
@@ -121,8 +104,26 @@ while run:
     clock.tick(27)
     if player1.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and player1.hitbox[1] + player1.hitbox[3] > player2.hitbox[1]:
         if player1.hitbox[0] + player1.hitbox[2] > player2.hitbox[0] and player1.hitbox[0] < player2.hitbox[0] + player2.hitbox[2]:
-            player1.hit()
-            score -= 5
+            player1.hit = True
+            if player1.right == True:
+                player2.x += player2.vel
+            else:
+                player2.x -= player2.vel
+        else:
+            player1.hit = False
+    else:
+        player1.hit = False
+    if player2.hitbox[1] < player1.hitbox[1] + player1.hitbox[3] and player2.hitbox[1] + player2.hitbox[3] > player1.hitbox[1]:
+        if player2.hitbox[0] + player2.hitbox[2] > player1.hitbox[0] and player2.hitbox[0] < player1.hitbox[0] + player1.hitbox[2]:
+            player2.hit = True
+            if player2.right == True:
+                player1.x += player1.vel
+            else:
+                player1.x -= player1.vel
+        else:
+            player2.hit = False
+    else:
+        player2.hit = False
 
     if shootLoop > 0:
         shootLoop += 1
@@ -138,8 +139,7 @@ while run:
             if bullet.x + bullet.radius > player2.hitbox[0] and bullet.x - bullet.radius < player2.hitbox[0] + \
                     player2.hitbox[2]:
                 #hitSound.play()
-                player2.hit()
-                score += 1
+                player2.hit = True
                 bullets.pop(bullets.index(bullet))
 
         if bullet.x < 1550 and bullet.x > 0:
