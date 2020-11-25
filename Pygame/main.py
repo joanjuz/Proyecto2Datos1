@@ -42,29 +42,23 @@ class player(object):
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
 
     def draw(self, win):
-        if self.walkCount + 1 >= 27:
+        if self.walkCount + 1 >= 20:
             self.walkCount = 0
 
         if not (self.standing):
             if self.left:
                 win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
-                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
             elif self.right:
                 win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
-                self.hitbox = (self.x + 50, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
         else:
             if self.right:
                 win.blit(walkRight[0], (self.x, self.y))
-                self.hitbox = (self.x + 50, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
             else:
                 win.blit(walkLeft[0], (self.x, self.y))
-                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+        pygame.draw.rect(win, (255,0,0), self.hitbox,2)
 
     def hit(self):
         self.isJump = False
@@ -135,27 +129,20 @@ class enemy(object):
     def draw(self, win):
         self.move()
         if self.visible:
-            if self.walkCount + 1 >= 27:
+            if self.walkCount + 1 >= 20:
                 self.walkCount = 0
 
             if self.vel > 0:
                 win.blit(self.walkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
-                pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
-                pygame.draw.rect(win, (0, 128, 0),
-                                 (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
-                self.hitbox = (self.x + 50, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
             else:
                 win.blit(self.walkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
-                pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
-                pygame.draw.rect(win, (0, 128, 0),
-                                 (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
-                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
-
+            pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
+            pygame.draw.rect(win, (0, 128, 0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
+            self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+            # pygame.draw.rect(win, (255,0,0), self.hitbox,2)
 
     def move(self):
         if self.vel > 0:
@@ -251,7 +238,7 @@ while run:
         man.left = True
         man.right = False
         man.standing = False
-    elif keys[pygame.K_RIGHT] and man.x < 1550 - man.width - man.vel:
+    elif keys[pygame.K_RIGHT] and man.x < 1900 - man.width - man.vel:
         man.x += man.vel
         man.right = True
         man.left = False
@@ -280,3 +267,4 @@ while run:
     redrawGameWindow()
 
 pygame.quit()
+
