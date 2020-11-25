@@ -12,6 +12,13 @@ walkRight = [pygame.image.load('Recursos/Sprittes correr/R1.png'), pygame.image.
 walkLeft = [pygame.image.load('Recursos/Sprittes correr/L1.png'), pygame.image.load('Recursos/Sprittes correr/L2.png'), pygame.image.load('Recursos/Sprittes correr/L3.png'),
              pygame.image.load('Recursos/Sprittes correr/L4.png'), pygame.image.load('Recursos/Sprittes correr/L5.png'), pygame.image.load('Recursos/Sprittes correr/L6.png'),
              pygame.image.load('Recursos/Sprittes correr/L7.png'), pygame.image.load('Recursos/Sprittes correr/L8.png'), pygame.image.load("Recursos/Sprittes correr/L9.png")]
+
+golpeI = [pygame.image.load('Recursos/Sprittes golpear/L1.png'),pygame.image.load('Recursos/Sprittes golpear/L2.png'),pygame.image.load('Recursos/Sprittes golpear/L3.png'),
+          pygame.image.load('Recursos/Sprittes golpear/L4.png'),pygame.image.load('Recursos/Sprittes golpear/L5.png'),pygame.image.load('Recursos/Sprittes golpear/L6.png'),
+          pygame.image.load('Recursos/Sprittes golpear/L7.png')]
+golpeD = [pygame.image.load('Recursos/Sprittes golpear/R1.png'),pygame.image.load('Recursos/Sprittes golpear/R2.png'),pygame.image.load('Recursos/Sprittes golpear/R3.png'),
+          pygame.image.load('Recursos/Sprittes golpear/R4.png'),pygame.image.load('Recursos/Sprittes golpear/R5.png'),pygame.image.load('Recursos/Sprittes golpear/R6.png'),
+          pygame.image.load('Recursos/Sprittes golpear/R7.png')]
 bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #char = pygame.image.load('standing.png')
 
@@ -41,12 +48,21 @@ class player(object):
         self.jumpCount = 10
         self.standing = True
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+        self.punch = False
+        self.punchCount = 0
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
+        if self.punchCount + 1 >= 21:
+            self.punchCount = 0
+            self.punch = False
 
         if not (self.standing):
+            if self.punch:
+                win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
+                self.punchCount += 1
+                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
             if self.left:
                 win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
@@ -58,7 +74,11 @@ class player(object):
                 self.hitbox = (self.x + 50, self.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
         else:
-            if self.right:
+            if self.punch:
+                win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
+                self.punchCount += 1
+                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
+            elif self.right:
                 win.blit(walkRight[0], (self.x, self.y))
                 self.hitbox = (self.x + 50, self.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
@@ -66,6 +86,8 @@ class player(object):
                 win.blit(walkLeft[0], (self.x, self.y))
                 self.hitbox = (self.x + 17, self.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+
+
 
 
 
@@ -165,28 +187,27 @@ while run:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_s] and shootLoop == 0:
-        #bulletSound.play()
-        if player1.left:
-            facing = -1
-        else:
-            facing = 1
+    if keys[pygame.K_s]:
+        print("punch")
+        player1.punch = True
+        player1.right = False
+        player1.standing = False
+        player1.left = False
 
-        if len(bullets) < 5:
-            bullets.append(projectile(round(player1.x + player1.width // 2), round(player1.y + player1.height // 2), 6, (0, 0, 0), facing))
-
-        shootLoop = 1
 
     if keys[pygame.K_a] and player1.x > player1.vel:
         player1.x -= player1.vel
         player1.left = True
         player1.right = False
         player1.standing = False
+        player1.punch = False
     elif keys[pygame.K_d] and player1.x < 1550 - player1.width - player1.vel:
         player1.x += player1.vel
         player1.right = True
         player1.left = False
         player1.standing = False
+        player1.punch = False
+
     else:
         player1.standing = True
         player1.walkCount = 0
@@ -196,6 +217,7 @@ while run:
             player1.isJump = True
             player1.right = False
             player1.left = False
+            player1.punch = False
             player1.walkCount = 0
     else:
         if player1.jumpCount >= -10:
