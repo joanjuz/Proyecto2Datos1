@@ -56,13 +56,19 @@ class player(object):
             self.walkCount = 0
         if self.punchCount + 1 >= 21:
             self.punchCount = 0
+            self.punch = False
 
         if not (self.standing):
             if self.punch:
-                win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
-                self.punchCount += 1
-                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
-            if self.left:
+                if self.left:
+                    win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
+                    self.punchCount += 1
+                    self.hitbox = (self.x + 17, self.y + 2, 31, 120)
+                if self.right:
+                    win.blit(golpeD[self.punchCount // 3], (self.x, self.y))
+                    self.punchCount += 1
+                    self.hitbox = (self.x + 17, self.y + 2, 31, 120)
+            elif self.left:
                 win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
                 self.hitbox = (self.x + 17, self.y + 2, 31, 120)
@@ -74,9 +80,14 @@ class player(object):
                 pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
         else:
             if self.punch:
-                win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
-                self.punchCount += 1
-                self.hitbox = (self.x + 17, self.y + 2, 31, 120)
+                if self.left:
+                    win.blit(golpeI[self.punchCount // 3], (self.x, self.y))
+                    self.punchCount += 1
+                    self.hitbox = (self.x + 17, self.y + 2, 31, 120)
+                if self.right:
+                    win.blit(golpeD[self.punchCount // 3], (self.x, self.y))
+                    self.punchCount += 1
+                    self.hitbox = (self.x + 17, self.y + 2, 31, 120)
             elif self.right:
                 win.blit(walkRight[0], (self.x, self.y))
                 self.hitbox = (self.x + 50, self.y + 2, 31, 120)
@@ -189,9 +200,8 @@ while run:
     if keys[pygame.K_s]:
         print("punch")
         player1.punch = True
-        player1.right = False
         player1.standing = False
-        player1.left = False
+
 
 
     if keys[pygame.K_a] and player1.x > player1.vel:
