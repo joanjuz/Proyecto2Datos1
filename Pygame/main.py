@@ -56,10 +56,12 @@ while run:
                 if player2.punch:
                     if player2.right:
                         player1.left = True
+                        player1.right = False
                         player1.golpe = True
                         player1.x += 20
                     else:
                         player1.right = True
+                        player1.left = False
                         player1.golpe = True
                         player1.x -= 20
 
@@ -87,10 +89,12 @@ while run:
                 if player1.punch:
                     if player1.right:
                         player2.left = True
+                        player2.right = False
                         player2.golpe = True
                         player2.x += 20
                     else:
                         player2.right = True
+                        player2.left = False
                         player2.golpe = True
                         player2.x -= 20
 
@@ -150,15 +154,17 @@ while run:
             player1.right = False
             player1.left = False
             player1.punch = False
+            player1.isjumpcount = 0
             player1.walkCount = 0
     else:
-        if player1.jumpCount >= -10:
+        if player1.jumpCount >= -player1.bajada:
             neg = 1
             if player1.jumpCount < 0:
                 neg = -1
             player1.y -= (player1.jumpCount ** 2) * 0.5 * neg
             player1.jumpCount -= 1
         else:
+            player1.bajada = 10
             player1.isJump = False
             player1.jumpCount = 10
     if keys[pygame.K_j] and player2.x > player2.vel:
@@ -181,25 +187,41 @@ while run:
             player2.isJump = True
             player2.right = False
             player2.left = False
+            player2.isjumpcount = 0
             player2.walkCount = 0
     else:
-        if player2.jumpCount >= -10:
+        if player2.jumpCount >= -player2.bajada:
             neg = 1
             if player2.jumpCount < 0:
                 neg = -1
             player2.y -= (player2.jumpCount ** 2) * 0.5 * neg
             player2.jumpCount -= 1
         else:
+            player2.bajada = 10
             player2.isJump = False
             player2.jumpCount = 10
 
+    a = False
+
     if keys[pygame.K_s]:
-        player1.punch = True
-        player1.standing = False
+        if a:
+            player1.punch = True
+            player1.standing = False
+        elif not a:
+            if not player1.isJump:
+                player1.bajada = 15
+                player1.jumpCount = 15
 
     if keys[pygame.K_k]:
-        player2.punch = True
-        player2.standing = False
+        if a:
+            player2.punch = True
+            player2.standing = False
+        else:
+            player2.isJump = True
+            player2.right = False
+            player2.left = False
+            player2.isjumpcount = 0
+            player2.walkCount = 0
 
 
 

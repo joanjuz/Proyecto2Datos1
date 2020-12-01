@@ -41,6 +41,7 @@ class player(object):
         self.punchCount = 0
         self.golpe = False
         self.golpeCount = 0
+        self.bajada = 10
 
     def draw(self, win):
         if self.isjumpcount + 1 >= 30:
@@ -106,7 +107,7 @@ class player(object):
                 if self.left:
                     win.blit(punchI[self.golpeCount // 3], (self.x, self.y))
                     self.golpeCount += 1
-                if self.right:
+                else:
                     win.blit(punchD[self.golpeCount // 3], (self.x, self.y))
                     self.golpeCount += 1
             elif self.punch:
@@ -116,7 +117,7 @@ class player(object):
                     self.hitbox = (self.x - 10, self.y + 45, 31, 20)
                     pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
-                if self.right:
+                else:
                     win.blit(golpeD[self.punchCount // 3], (self.x, self.y))
                     self.punchCount += 1
                     self.hitbox = (self.x + 70, self.y + 45, 31, 20)
