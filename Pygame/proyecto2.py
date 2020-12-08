@@ -104,7 +104,7 @@ def Credits():
 #functions of score board
 def Score_Board():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("Recursos/fondo4.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondoscore.png")
     running = False
     while not running:
         for event in pygame.event.get():
