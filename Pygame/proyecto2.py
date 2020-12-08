@@ -19,7 +19,7 @@ HEIGHT = 700
 #functions of instructions
 def Instructions():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("Recursos/fondo3.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondoins.png")
 
     running = False
     while not running:
