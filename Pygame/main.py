@@ -1,22 +1,14 @@
 import pygame
-
+from Player import  player
 pygame.init()
 
 win = pygame.display.set_mode((1900, 1000))
 
 pygame.display.set_caption("First Game")
-
-walkRight = [pygame.image.load('Recursos/Sprittes correr/R1.png'), pygame.image.load('Recursos/Sprittes correr/R2.png'), pygame.image.load('Recursos/Sprittes correr/R3.png'),
-             pygame.image.load('Recursos/Sprittes correr/R4.png'), pygame.image.load('Recursos/Sprittes correr/R5.png'), pygame.image.load('Recursos/Sprittes correr/R6.png'),
-             pygame.image.load('Recursos/Sprittes correr/R7.png'), pygame.image.load('Recursos/Sprittes correr/R8.png'),pygame.image.load("Recursos/Sprittes correr/R9.png")]
-walkLeft = [pygame.image.load('Recursos/Sprittes correr/L1.png'), pygame.image.load('Recursos/Sprittes correr/L2.png'), pygame.image.load('Recursos/Sprittes correr/L3.png'),
-             pygame.image.load('Recursos/Sprittes correr/L4.png'), pygame.image.load('Recursos/Sprittes correr/L5.png'), pygame.image.load('Recursos/Sprittes correr/L6.png'),
-             pygame.image.load('Recursos/Sprittes correr/L7.png'), pygame.image.load('Recursos/Sprittes correr/L8.png'), pygame.image.load("Recursos/Sprittes correr/L9.png")]
-bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #char = pygame.image.load('standing.png')
 
 clock = pygame.time.Clock()
-
+bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #bulletSound = pygame.mixer.Sound('bullet.wav')
 #hitSound = pygame.mixer.Sound('hit.wav')
 
@@ -24,247 +16,263 @@ clock = pygame.time.Clock()
 #pygame.mixer.music.play(-1)
 
 score = 0
-
-
-class player(object):
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.vel = 5
-        self.isJump = False
-        self.left = False
-        self.right = False
-        self.walkCount = 0
-        self.jumpCount = 10
-        self.standing = True
-        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
-
-    def draw(self, win):
-        if self.walkCount + 1 >= 20:
-            self.walkCount = 0
-
-        if not (self.standing):
-            if self.left:
-                win.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-            elif self.right:
-                win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-        else:
-            if self.right:
-                win.blit(walkRight[0], (self.x, self.y))
-            else:
-                win.blit(walkLeft[0], (self.x, self.y))
-        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
-        pygame.draw.rect(win, (255,0,0), self.hitbox,2)
-
-    def hit(self):
-        self.isJump = False
-        self.jumpCount = 10
-        self.x = 100
-        self.y = 410
-        self.walkCount = 0
-        font1 = pygame.font.SysFont('comicsans', 100)
-        text = font1.render('-5', 1, (255, 0, 0))
-        win.blit(text, (250 - (text.get_width() / 2), 200))
-        pygame.display.update()
-        i = 0
-        while i < 200:
-            pygame.time.delay(10)
-            i += 1
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    i = 201
-                    pygame.quit()
-
-
-class projectile(object):
-    def __init__(self, x, y, radius, color, facing):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.color = color
-        self.facing = facing
-        self.vel = 8 * facing
-
-    def draw(self, win):
-        pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
-
-
-class enemy(object):
-    walkRight = [pygame.image.load('Recursos/Sprittes correr/R1.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R2.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R3.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R4.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R5.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R6.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R7.png'),
-                 pygame.image.load('Recursos/Sprittes correr/R8.png'),
-                 pygame.image.load("Recursos/Sprittes correr/R9.png")]
-    walkLeft = [pygame.image.load('Recursos/Sprittes correr/L1.png'),
-                pygame.image.load('Recursos/Sprittes correr/L2.png'),
-                pygame.image.load('Recursos/Sprittes correr/L3.png'),
-                pygame.image.load('Recursos/Sprittes correr/L4.png'),
-                pygame.image.load('Recursos/Sprittes correr/L5.png'),
-                pygame.image.load('Recursos/Sprittes correr/L6.png'),
-                pygame.image.load('Recursos/Sprittes correr/L7.png'),
-                pygame.image.load('Recursos/Sprittes correr/L8.png'),
-                pygame.image.load("Recursos/Sprittes correr/L9.png")]
-
-    def __init__(self, x, y, width, height, end):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.end = end
-        self.path = [self.x, self.end]
-        self.walkCount = 0
-        self.vel = 3
-        self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-        self.health = 10
-        self.visible = True
-
-    def draw(self, win):
-        self.move()
-        if self.visible:
-            if self.walkCount + 1 >= 20:
-                self.walkCount = 0
-
-            if self.vel > 0:
-                win.blit(self.walkRight[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-            else:
-                win.blit(self.walkLeft[self.walkCount // 3], (self.x, self.y))
-                self.walkCount += 1
-
-            pygame.draw.rect(win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
-            pygame.draw.rect(win, (0, 128, 0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
-            self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-            # pygame.draw.rect(win, (255,0,0), self.hitbox,2)
-
-    def move(self):
-        if self.vel > 0:
-            if self.x + self.vel < self.path[1]:
-                self.x += self.vel
-            else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
-        else:
-            if self.x - self.vel > self.path[0]:
-                self.x += self.vel
-            else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
-
-    def hit(self):
-        if self.health > 0:
-            self.health -= 1
-        else:
-            self.visible = False
-        print('hit')
-
+TARGET_FPS = 60
 
 def redrawGameWindow():
     win.blit(bg, (0, 0))
     text = font.render('Score: ' + str(score), 1, (0, 0, 0))
     win.blit(text, (350, 10))
-    man.draw(win)
-    goblin.draw(win)
-    for bullet in bullets:
-        bullet.draw(win)
-
+    player2.draw(win)
+    player1.draw(win)
     pygame.display.update()
 
 
 # mainloop
 font = pygame.font.SysFont('comicsans', 30, True)
-man = player(200, 410, 64, 64)
-goblin = enemy(100, 410, 64, 64, 450)
-shootLoop = 0
-bullets = []
+player1 = player()
+player1.position.x = 300
+player1.position.y = 700
+player2 = player()
+player2.position.x = 600
+player2.position.y = 700
 run = True
 while run:
-    clock.tick(27)
-
-    if goblin.visible == True:
-        if man.hitbox[1] < goblin.hitbox[1] + goblin.hitbox[3] and man.hitbox[1] + man.hitbox[3] > goblin.hitbox[1]:
-            if man.hitbox[0] + man.hitbox[2] > goblin.hitbox[0] and man.hitbox[0] < goblin.hitbox[0] + goblin.hitbox[2]:
-                man.hit()
-                score -= 5
-
-    if shootLoop > 0:
-        shootLoop += 1
-    if shootLoop > 3:
-        shootLoop = 0
+    dt = clock.tick(60) * .001 * TARGET_FPS
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                player1.LEFT_KEY = True
+                player1.left = True
+                player1.right = False
+                player1.standing = False
+                player1.punch = False
+            elif event.key == pygame.K_d:
+                player1.RIGHT_KEY = True
+                player1.left = False
+                player1.right = True
+                player1.standing = False
+                player1.punch = False
+            elif event.key == pygame.K_w:
+                player1.jump()
+            elif event.key == pygame.K_j:
+                player2.LEFT_KEY = True
+                player2.left = True
+                player2.right = False
+                player2.standing = False
+                player2.punch = False
+            elif event.key == pygame.K_l:
+                player2.RIGHT_KEY = True
+                player2.left = False
+                player2.right = True
+                player2.standing = False
+                player2.punch = False
+            elif event.key == pygame.K_i:
+                player2.jump()
+        ############################################
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a:
+                player1.LEFT_KEY = False
+                player1.left = False
+                player1.right = False
+                player1.standing = True
+                player1.punch = False
+            elif event.key == pygame.K_d:
+                player1.RIGHT_KEY = False
+                player1.LEFT_KEY = False
+                player1.left = False
+                player1.right = False
+                player1.standing = True
+                player1.punch = False
+            elif event.key == pygame.K_w:
+                if player1.isJump:
+                    player1.vel.y *= .25
+                    player1.isJump = False
+            if event.key == pygame.K_j:
+                player2.LEFT_KEY = False
+                player2.left = False
+                player2.right = False
+                player2.standing = True
+                player2.punch = False
+            elif event.key == pygame.K_l:
+                player2.RIGHT_KEY = False
+                player2.LEFT_KEY = False
+                player2.left = False
+                player2.right = False
+                player2.standing = True
+                player2.punch = False
+            elif event.key == pygame.K_i:
+                if player2.isJump:
+                    player2.vel.y *= .25
+                    player2.isJump = False
+    '''
+    if player1.hitbox[1] < player2.hitbox[1] + player2.hitbox[3] and player1.hitbox[1] + player1.hitbox[3] > player2.hitbox[1]:
+        if player1.hitbox[0] + player1.hitbox[2] > player2.hitbox[0] and player1.hitbox[0] < player2.hitbox[0] + player2.hitbox[2]:
+            player1.hit = True
+            if not (player1.punch or player2.punch):
+                if player1.right == True:
+                    if player2.right == True:
+                        player1.position.x -= player1.vel.x
+                        player2.position.x += player2.vel.x
+                    else:
+                        player2.position.x += player2.vel.x
 
-    for bullet in bullets:
-        if bullet.y - bullet.radius < goblin.hitbox[1] + goblin.hitbox[3] and bullet.y + bullet.radius > goblin.hitbox[
-            1]:
-            if bullet.x + bullet.radius > goblin.hitbox[0] and bullet.x - bullet.radius < goblin.hitbox[0] + \
-                    goblin.hitbox[2]:
-                #hitSound.play()
-                goblin.hit()
-                score += 1
-                bullets.pop(bullets.index(bullet))
+                else:
+                    if player2.right == False:
+                        player1.position.x += player1.vel.x
+                        player2.position.x -= player2.vel.x
+                    else:
+                        player2.position.x -= player2.vel.x
+            else:
+                if player2.punch:
+                    if player2.right:
+                        player1.left = True
+                        player1.right = False
+                        player1.golpe = True
+                        player1.position.x += 20
+                    else:
+                        player1.right = True
+                        player1.left = False
+                        player1.golpe = True
+                        player1.position.x -= 20
 
-        if bullet.x < 500 and bullet.x > 0:
-            bullet.x += bullet.vel
         else:
-            bullets.pop(bullets.index(bullet))
+            player1.hit = False
+    else:
+        player1.hit = False
 
-    keys = pygame.key.get_pressed()
+    if player2.hitbox[1] < player1.hitbox[1] + player1.hitbox[3] and player2.hitbox[1] + player2.hitbox[3] > player1.hitbox[1]:
+        if player2.hitbox[0] + player2.hitbox[2] > player1.hitbox[0] and player2.hitbox[0] < player1.hitbox[0] + player1.hitbox[2]:
+            player2.hit = True
+            if not (player2.punch or player1.punch):
+                if player2.right:
+                    if player1.right:
+                        player2.position.x += player2.vel.x
+                        player1.position.x -= player1.vel.x
+                    player1.position.x += player1.vel.x
+                else:
+                    if player1.right == False:
+                        player2.position.x -= player2.vel.x
+                        player1.position.x += player1.vel.x
+                    else:
+                        player1.position.x -= player1.vel.x
+            else:
+                if player1.punch:
+                    if player1.right:
+                        player2.left = True
+                        player2.right = False
+                        player2.golpe = True
+                        player2.position.x += 20
+                    else:
+                        player2.right = True
+                        player2.left = False
+                        player2.golpe = True
+                        player2.position.x -= 20
 
-    if keys[pygame.K_SPACE] and shootLoop == 0:
-        #bulletSound.play()
-        if man.left:
-            facing = -1
+
         else:
-            facing = 1
-
-        if len(bullets) < 5:
-            bullets.append(
-                projectile(round(man.x + man.width // 2), round(man.y + man.height // 2), 6, (0, 0, 0), facing))
-
-        shootLoop = 1
-
-    if keys[pygame.K_LEFT] and man.x > man.vel:
-        man.x -= man.vel
-        man.left = True
-        man.right = False
-        man.standing = False
-    elif keys[pygame.K_RIGHT] and man.x < 1900 - man.width - man.vel:
-        man.x += man.vel
-        man.right = True
-        man.left = False
-        man.standing = False
+            player2.hit = False
     else:
-        man.standing = True
-        man.walkCount = 0
+        player2.hit = False
+        '''
+    '''
+    if keys[pygame.K_a] and player1.x > player1.vel.x:
+        player1.LEFT_KEY = True
+        player1.left = True
+        player1.right = False
+        player1.standing = False
+        player1.punch = False
+    elif keys[pygame.K_d] and player1.x < 1550 - player1.width - player1.vel:
+        player1.x += player1.vel
+        player1.right = True
+        player1.left = False
+        player1.standing = False
+        player1.punch = False
 
-    if not (man.isJump):
-        if keys[pygame.K_UP]:
-            man.isJump = True
-            man.right = False
-            man.left = False
-            man.walkCount = 0
     else:
-        if man.jumpCount >= -10:
+        player1.standing = True
+        player1.walkCount = 0
+
+    if not (player1.isJump):
+        if keys[pygame.K_w]:
+            player1.isJump = True
+            player1.right = False
+            player1.left = False
+            player1.punch = False
+            player1.isjumpcount = 0
+            player1.walkCount = 0
+    else:
+        if player1.jumpCount >= -player1.bajada:
             neg = 1
-            if man.jumpCount < 0:
+            if player1.jumpCount < 0:
                 neg = -1
-            man.y -= (man.jumpCount ** 2) * 0.5 * neg
-            man.jumpCount -= 1
+            player1.y -= (player1.jumpCount ** 2) * 0.5 * neg
+            player1.jumpCount -= 1
         else:
-            man.isJump = False
-            man.jumpCount = 10
+            player1.bajada = 10
+            player1.isJump = False
+            player1.jumpCount = 10
+            
+    if keys[pygame.K_j] and player2.x > player2.vel:
+        player2.x -= player2.vel
+        player2.left = True
+        player2.right = False
+        player2.standing = False
+    elif keys[pygame.K_l] and player2.x < 1550 - player2.width - player2.vel:
+        player2.x += player2.vel
+        player2.right = True
+        player2.left = False
+        player2.standing = False
 
+    else:
+        player2.standing = True
+        player2.walkCount = 0
+
+    if not (player2.isJump):
+        if keys[pygame.K_i]:
+            player2.isJump = True
+            player2.right = False
+            player2.left = False
+            player2.isjumpcount = 0
+            player2.walkCount = 0
+    else:
+        if player2.jumpCount >= -player2.bajada:
+            neg = 1
+            if player2.jumpCount < 0:
+                neg = -1
+            player2.y -= (player2.jumpCount ** 2) * 0.5 * neg
+            player2.jumpCount -= 1
+        else:
+            player2.bajada = 10
+            player2.isJump = False
+            player2.jumpCount = 10
+
+    a = False
+
+    if keys[pygame.K_s]:
+        if a:
+            player1.punch = True
+            player1.standing = False
+        elif not a:
+            if not player1.isJump:
+                player1.bajada = 15
+                player1.jumpCount = 15
+
+    if keys[pygame.K_k]:
+        if a:
+            player2.punch = True
+            player2.standing = False
+        else:
+            player2.isJump = True
+            player2.right = False
+            player2.left = False
+            player2.isjumpcount = 0
+            player2.walkCount = 0
+        '''
+    player2.update(dt,[player1])
+    player1.update(dt,[player2])
     redrawGameWindow()
 
 pygame.quit()
-

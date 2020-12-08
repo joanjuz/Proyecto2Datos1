@@ -19,7 +19,7 @@ HEIGHT = 700
 #functions of instructions
 def Instructions():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("fondo3.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondo3.png")
 
     running = False
     while not running:
@@ -68,7 +68,7 @@ def Instructions():
 #functions of credits
 def Credits():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("fondo4.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondo4.png")
     running = False
     while not running:
         for event in pygame.event.get():
@@ -104,7 +104,7 @@ def Credits():
 #functions of score board
 def Score_Board():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("fondo4.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondo4.png")
     running = False
     while not running:
         for event in pygame.event.get():
@@ -142,7 +142,7 @@ def main_menu():
         pygame.init()
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Battle Stickman V2.0")
-        Fondo_Pantalla = pygame.image.load("fondo4.png")
+        Fondo_Pantalla = pygame.image.load("Recursos/fondo4.png")
         Entry = pygame.Rect(400, 130, 200, 50)
         User_Name = " "
         Active = False
