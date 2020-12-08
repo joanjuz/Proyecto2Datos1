@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="fondo instrucciones">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pygame/proyecto2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pygame/proyecto2.py" afterDir="false" />
-    </list>
+    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
