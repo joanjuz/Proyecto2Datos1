@@ -68,7 +68,7 @@ def Instructions():
 #functions of credits
 def Credits():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    Back_Ground_IMG = pygame.image.load("Recursos/fondo4.png")
+    Back_Ground_IMG = pygame.image.load("Recursos/fondocred.png")
     running = False
     while not running:
         for event in pygame.event.get():
