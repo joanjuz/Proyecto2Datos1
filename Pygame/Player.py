@@ -26,6 +26,8 @@ jumpD = J1.get_spritte()
 J2 = Spritesheet('jumpL')
 jumpI = J2.get_spritte()
 
+S1 = Spritesheet('Stand')
+Stand = S1.get_spritte()
 
 #############################################################################################
 class player(object):
@@ -50,6 +52,7 @@ class player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
+        self.scount = 0
         ###############################
         self.hit = False
         ###############################
@@ -82,6 +85,8 @@ class player(object):
         if self.golpeCount + 1 >= 36:
             self.golpeCount = 0
             self.golpe = False
+        if self.scount + 1 == 30:
+            self.scount = 0
 
         if not (self.standing):
             if self.isJump:
@@ -155,8 +160,13 @@ class player(object):
                 win.blit(walkRight[0], (self.position.x, self.position.y))
                 self.hitbox = (self.position.x + 23, self.position.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
-            else:
+            elif self.left:
                 win.blit(walkLeft[0], (self.position.x, self.position.y))
+                self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
+                pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
+            else:
+                win.blit(Stand[self.scount // 6], (self.position.x, self.position.y))
+                self.scount += 1
                 self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 

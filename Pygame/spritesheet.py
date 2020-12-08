@@ -37,5 +37,7 @@ class Spritesheet:
           pygame.image.load('Recursos/Salto/SaltoI4.png'),pygame.image.load('Recursos/Salto/SaltoI5.png'),pygame.image.load('Recursos/Salto/SaltoI6.png'),pygame.image.load('Recursos/Salto/SaltoI7.png'),
           pygame.image.load('Recursos/Salto/SaltoI8.png'),pygame.image.load('Recursos/Salto/SaltoI9.png'),pygame.image.load('Recursos/Salto/SaltoI10.png')]
 
-
+        elif self.filename == "Stand":
+            return [pygame.image.load('Recursos/Stand/standD1.png'),pygame.image.load('Recursos/Stand/standD2.png'),pygame.image.load('Recursos/Stand/standD3.png'), pygame.image.load('Recursos/Stand/standD4.png'),
+                    pygame.image.load('Recursos/Stand/standD5.png')]
 
