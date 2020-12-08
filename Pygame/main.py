@@ -15,6 +15,7 @@ bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #music = pygame.mixer.music.load('music.mp3')
 #pygame.mixer.music.play(-1)
 
+
 score = 0
 TARGET_FPS = 60
 
