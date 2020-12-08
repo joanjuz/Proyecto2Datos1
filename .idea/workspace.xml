@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="." />
+    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="fondo creditos">
+      <change beforePath="$PROJECT_DIR$/Pygame/proyecto2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pygame/proyecto2.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607454043838</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fondo creditos">
+      <created>1607456543934</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607456543934</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -92,7 +101,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fondo instrucciones" />
-    <option name="LAST_COMMIT_MESSAGE" value="fondo instrucciones" />
+    <MESSAGE value="fondo creditos" />
+    <option name="LAST_COMMIT_MESSAGE" value="fondo creditos" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607453049599">
@@ -107,10 +117,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="178" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607452912914" />
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607453883876">
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607456552464">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607453883876" />
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607456552464" />
     <state x="984" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607452920975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
