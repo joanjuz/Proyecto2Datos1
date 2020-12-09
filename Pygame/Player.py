@@ -170,12 +170,13 @@ class player(object):
                 self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
-    def update(self,dt,players):
+    def update(self,dt,players,platform):
         self.horizontal_movement(dt)
         self.checkCollisionsx(players)
+        self.checkCollisionspx(platform)
         self.vertical_movement(dt)
         self.checkCollisionsy(players)
-
+        self.checkCollisionspy(platform)
 
     def horizontal_movement(self,dt):
         self.acceleration.x = 0
@@ -193,10 +194,6 @@ class player(object):
         self.vel.y +=  self.acceleration.y * dt
         if self.vel.y > 7: self.vel.y = 7
         self.position.y += self.vel.y * dt + (self.acceleration.y * .5) *(dt * dt)
-        if self.position.y > 700:
-            self.on_ground = True
-            self.vel.y = 0
-            self.position.y = 700
         self.rect.bottom = self.position.y + 150
 
     def limit_velocity(self,max_vel):
@@ -221,12 +218,41 @@ class player(object):
                 if self.vel.x > 0:
                     self.position.x = player.rect.left - self.rect.w - 20
                     self.rect.x = self.position.x + 20
+                    if player.standing == True:
+                        player.vel.x += 0.25
                 elif self.vel.x < 0:
                     self.position.x = player.rect.right - 20
                     self.rect.x = self.position.x + 20
+                    if player.standing == True:
+                        player.vel.x -= 0.25
             else:
                 return
+    def checkCollisionspx(self,platform):
+        collisions = self.get_hits(platform)
+        for plat in collisions:
+            if self.vel.x > 0:
+                self.position.x = plat.rect.left - self.rect.w - 20
+                self.rect.x = self.position.x + 20
+            elif self.vel.x < 0:
+                self.position.x = plat.rect.right - 20
+                self.rect.x = self.position.x + 20
+    def checkCollisionspy(self,platform):
+        self.on_ground = False
+        self.rect.bottom += 1
+        collisions = self.get_hits(platform)
+        for plat in collisions:
+            if self.vel.y > 0:
+                self.on_ground = True
+                self.isJump = False
+                self.vel.y = 0
+                self.position.y = plat.rect.top - 150
+                self.rect.bottom = self.position.y + 150
+            elif self.vel.y < 0:
+                self.vel.y = 0
+                self.position.y = plat.rect.bottom + self.rect.h
+                self.rect.bottom = self.position.y
     def checkCollisionsy(self,players):
+        self.on_ground = False
         self.rect.bottom += 1
         collisions = self.get_hits(players)
         for player in collisions:

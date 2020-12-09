@@ -1,5 +1,7 @@
 import pygame
 from Player import  player
+from spritesheet import Spritesheet
+from platform import platform
 pygame.init()
 
 win = pygame.display.set_mode((1900, 1000))
@@ -15,6 +17,11 @@ bg = pygame.image.load('Recursos/Backgroung/bg.png')
 #music = pygame.mixer.music.load('music.mp3')
 #pygame.mixer.music.play(-1)
 
+P1 = Spritesheet("platform")
+Platform1 = P1.get_spritte()
+
+P2 = Spritesheet("platform1")
+Platform2 = P2.get_spritte()
 
 score = 0
 TARGET_FPS = 60
@@ -23,6 +30,9 @@ def redrawGameWindow():
     win.blit(bg, (0, 0))
     text = font.render('Score: ' + str(score), 1, (0, 0, 0))
     win.blit(text, (350, 10))
+    piso.draw(win)
+    plataform1.draw(win)
+    platform2.draw(win)
     player2.draw(win)
     player1.draw(win)
     pygame.display.update()
@@ -31,11 +41,16 @@ def redrawGameWindow():
 # mainloop
 font = pygame.font.SysFont('comicsans', 30, True)
 player1 = player()
-player1.position.x = 300
+player1.position.x = 500
 player1.position.y = 700
 player2 = player()
 player2.position.x = 600
 player2.position.y = 700
+
+piso = platform(Platform1[0],450,860)
+plataform1 = platform(Platform2[0],1400,650)
+platform2 = platform(Platform2[1],200,650)
+
 run = True
 while run:
     dt = clock.tick(60) * .001 * TARGET_FPS
@@ -272,8 +287,8 @@ while run:
             player2.isjumpcount = 0
             player2.walkCount = 0
         '''
-    player2.update(dt,[player1])
-    player1.update(dt,[player2])
+    player2.update(dt,[player1],[piso,platform2,plataform1])
+    player1.update(dt,[player2],[piso,platform2,plataform1])
     redrawGameWindow()
 
 pygame.quit()

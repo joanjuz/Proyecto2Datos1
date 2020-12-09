@@ -41,3 +41,7 @@ class Spritesheet:
             return [pygame.image.load('Recursos/Stand/standD1.png'),pygame.image.load('Recursos/Stand/standD2.png'),pygame.image.load('Recursos/Stand/standD3.png'), pygame.image.load('Recursos/Stand/standD4.png'),
                     pygame.image.load('Recursos/Stand/standD5.png')]
 
+        elif self.filename == "platform":
+            return [pygame.image.load('Recursos/Plataforma/piso.png')]
+        elif self.filename == "platform1":
+            return [pygame.image.load('Recursos/Plataforma/plataforma1.png'), pygame.image.load('Recursos/Plataforma/plataforma2.png')]
