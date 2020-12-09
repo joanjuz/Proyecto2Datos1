@@ -112,17 +112,12 @@ while run:
                     player1.isJump = False
             if event.key == pygame.K_j:
                 player2.LEFT_KEY = False
-                player2.left = False
                 player2.right = False
                 player2.standing = True
-                player2.punch = False
             elif event.key == pygame.K_l:
                 player2.RIGHT_KEY = False
-                player2.LEFT_KEY = False
                 player2.left = False
-                player2.right = False
                 player2.standing = True
-                player2.punch = False
             elif event.key == pygame.K_i:
                 if player2.isJump:
                     player2.vel.y *= .25

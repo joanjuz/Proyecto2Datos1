@@ -35,7 +35,6 @@ class player(object):
         ################################
         self.image = walkRight[0]
         self.rect = self.image.get_rect()
-        self.rect.w = 40
         ###################################
         self.isJump = False
         self.isjumpcount = 0
@@ -81,8 +80,10 @@ class player(object):
             self.walkCount = 0
         if self.punchCount + 1 >= 42:
             self.punchCount = 0
-            self.punch = False
             self.standing = True
+            self.rect = self.image.get_rect()
+            self.punch = False
+
         if self.golpeCount + 1 >= 36:
             self.golpeCount = 0
             self.golpe = False
@@ -94,9 +95,11 @@ class player(object):
                 if self.left:
                     win.blit(jumpI[self.isjumpcount // 10], (self.position.x, self.position.y))
                     self.isjumpcount += 1
+                    self.rect.w = 40
                 elif self.right:
                     win.blit(jumpD[self.isjumpcount // 10], (self.position.x, self.position.y))
                     self.isjumpcount += 1
+                    self.rect.w = 40
             elif self.golpe:
                 if self.left:
                     win.blit(punchI[self.golpeCount // 6], (self.position.x, self.position.y))
@@ -110,24 +113,23 @@ class player(object):
                 if self.left:
                     win.blit(golpeI[self.punchCount // 6], (self.position.x, self.position.y))
                     self.punchCount += 1
-                    self.hitbox = (self.position.x - 10, self.position.y + 45, 31, 20)
+
                     pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
                 if self.right:
                     win.blit(golpeD[self.punchCount // 6], (self.position.x, self.position.y))
                     self.punchCount += 1
-                    self.hitbox = (self.position.x + 70, self.position.y + 45, 31, 20)
                     pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
             elif self.left:
                 win.blit(walkLeft[self.walkCount // 6], (self.position.x, self.position.y))
                 self.walkCount += 1
-                self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
+                self.rect.w = 40
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
             elif self.right:
                 win.blit(walkRight[self.walkCount // 6], (self.position.x, self.position.y))
                 self.walkCount += 1
-                self.hitbox = (self.position.x + 23, self.position.y + 2, 31, 120)
+                self.rect.w = 40
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
         else:
             if self.isJump:
@@ -160,7 +162,7 @@ class player(object):
             else:
                 win.blit(Stand[self.scount // 6], (self.position.x, self.position.y))
                 self.scount += 1
-                self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
+                self.rect.w = 40
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
     def update(self,dt,players,platform):
@@ -181,14 +183,23 @@ class player(object):
         self.vel.x += self.acceleration.x * dt
         self.limit_velocity(15)
         self.position.x += self.vel.x * dt + (self.acceleration.x * .5)*(dt * dt)
-        self.rect.x = self.position.x + 20
+        if not self.punch:
+            self.rect.x = self.position.x + 20
+        elif self.punch:
+            if self.right:
+                self.rect.x = self.position.x + 75
+            else:
+                self.rect.x = self.position.x - 20
+
 
     def vertical_movement(self,dt):
         self.vel.y +=  self.acceleration.y * dt
         if self.vel.y > 7: self.vel.y = 7
         self.position.y += self.vel.y * dt + (self.acceleration.y * .5) *(dt * dt)
-        self.rect.bottom = self.position.y + 150
-
+        if not self.punch:
+            self.rect.bottom = self.position.y + 150
+        else:
+            self.rect.y = self.position.y + 100
     def limit_velocity(self,max_vel):
         min(-max_vel,max(self.vel.x,max_vel))
         if abs(self.vel.x) < .01: self.vel.x = 0
@@ -207,7 +218,7 @@ class player(object):
     def checkCollisionsx(self,players):
         collisions = self.get_hits(players)
         for player in collisions:
-            if not self.hit:
+            if not self.punch and not player.punch:
                 if self.vel.x > 0:
                     self.position.x = player.rect.left - self.rect.w - 20
                     self.rect.x = self.position.x + 20
@@ -219,7 +230,48 @@ class player(object):
                     if player.standing == True:
                         player.vel.x -= 0.25
             else:
-                return
+                if self.punch:
+                    if self.right:
+                        player.right = False
+                        player.left = True
+                        player.golpe = True
+                        player.vel.x += 40
+                    else:
+                        player.left = False
+                        player.right = True
+                        player.golpe = True
+                        player.vel.x -= 40
+
+
+    def checkCollisionsy(self,players):
+        self.on_ground = False
+        self.rect.bottom += 2
+        collisions = self.get_hits(players)
+        for player in collisions:
+            if not self.punch and not player.punch:
+                if self.vel.y > 0:
+                    self.on_ground = True
+                    self.isJump = False
+                    self.vel.y = 0
+                    self.position.y = player.rect.top - 150
+                    self.rect.bottom = self.position.y + 150
+                elif self.vel.y < 0:
+                    self.vel.y = 0
+                    self.position.y = player.rect.bottom + self.rect.h
+                    self.rect.bottom = self.position.y
+            else:
+                if self.punch:
+                    if self.right:
+                        player.right = False
+                        player.left = True
+                        player.golpe = True
+                        player.vel.y -= 6
+                    else:
+                        player.left = False
+                        player.right = True
+                        player.golpe = True
+                        player.vel.y -= 6
+
     def checkCollisionspx(self,platform):
         collisions = self.get_hits(platform)
         for plat in collisions:
@@ -243,19 +295,4 @@ class player(object):
             elif self.vel.y < 0:
                 self.vel.y = 0
                 self.position.y = plat.rect.bottom + self.rect.h
-                self.rect.bottom = self.position.y
-    def checkCollisionsy(self,players):
-        self.on_ground = False
-        self.rect.bottom += 1
-        collisions = self.get_hits(players)
-        for player in collisions:
-            if self.vel.y > 0:
-                self.on_ground = True
-                self.isJump = False
-                self.vel.y = 0
-                self.position.y = player.rect.top - 150
-                self.rect.bottom = self.position.y + 150
-            elif self.vel.y < 0:
-                self.vel.y = 0
-                self.position.y = player.rect.bottom + self.rect.h
                 self.rect.bottom = self.position.y
