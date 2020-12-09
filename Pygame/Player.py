@@ -82,6 +82,7 @@ class player(object):
         if self.punchCount + 1 >= 42:
             self.punchCount = 0
             self.punch = False
+            self.standing = True
         if self.golpeCount + 1 >= 36:
             self.golpeCount = 0
             self.golpe = False
@@ -156,14 +157,6 @@ class player(object):
                     self.hitbox = (self.position.x + 70, self.position.y + 45, 31, 20)
                     pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
-            elif self.right:
-                win.blit(walkRight[0], (self.position.x, self.position.y))
-                self.hitbox = (self.position.x + 23, self.position.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
-            elif self.left:
-                win.blit(walkLeft[0], (self.position.x, self.position.y))
-                self.hitbox = (self.position.x + 17, self.position.y + 2, 31, 120)
-                pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
             else:
                 win.blit(Stand[self.scount // 6], (self.position.x, self.position.y))
                 self.scount += 1

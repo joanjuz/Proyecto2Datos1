@@ -87,21 +87,25 @@ while run:
                 player2.punch = False
             elif event.key == pygame.K_i:
                 player2.jump()
+            elif event.key == pygame.K_s:
+                player1.punchCount = 0
+                player1.punch = True
+                player1.standing = False
+            elif event.key == pygame.K_k:
+                player2.punchCount = 0
+                player2.punch = True
+                player2.standing = False
         ############################################
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 player1.LEFT_KEY = False
-                player1.left = False
                 player1.right = False
                 player1.standing = True
-                player1.punch = False
             elif event.key == pygame.K_d:
                 player1.RIGHT_KEY = False
                 player1.LEFT_KEY = False
                 player1.left = False
-                player1.right = False
                 player1.standing = True
-                player1.punch = False
             elif event.key == pygame.K_w:
                 if player1.isJump:
                     player1.vel.y *= .25
