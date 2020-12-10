@@ -126,5 +126,4 @@ while run:
     player2.update(dt,[player1],[piso,platform2,plataform1])
     player1.update(dt,[player2],[piso,platform2,plataform1])
     redrawGameWindow()
-
 pygame.quit()
