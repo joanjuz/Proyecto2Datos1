@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="piso" />
+    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="numeros" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607460320501</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="numeros">
+      <created>1607562219079</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607562219080</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,7 +130,8 @@
     <MESSAGE value="fondo creditos" />
     <MESSAGE value="fondo score" />
     <MESSAGE value="piso" />
-    <option name="LAST_COMMIT_MESSAGE" value="piso" />
+    <MESSAGE value="numeros" />
+    <option name="LAST_COMMIT_MESSAGE" value="numeros" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607453049599">
@@ -138,10 +146,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="178" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607452912914" />
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607460322809">
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607562220747">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607460322809" />
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607562220747" />
     <state x="984" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607452920975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
