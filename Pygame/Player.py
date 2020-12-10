@@ -316,25 +316,26 @@ class player(object):
                 self.rect.bottom = self.position.y
     def checkCollisionspowers(self,pows):
         collisions = self.get_hits(pows)
-        for power in collisions:
-            if power.power == "shield":
-                self.pow = True
-                self.shield = True
-                self.powpunch = False
-                self.jumpow = False
-                power.drop = True
-                self.catch = power
-            elif power.power == "jump":
-                self.pow = True
-                self.shield = False
-                self.powpunch = False
-                self.jumpow = True
-                power.drop = True
-                self.catch = power
-            elif power.power == "punch":
-                self.pow = True
-                self.shield = False
-                self.powpunch = True
-                self.jumpow = False
-                power.drop = True
-                self.catch = power
+        if not self.pow:
+            for power in collisions:
+                if power.power == "shield":
+                    self.pow = True
+                    self.shield = True
+                    self.powpunch = False
+                    self.jumpow = False
+                    power.drop = True
+                    self.catch = power
+                elif power.power == "jump":
+                    self.pow = True
+                    self.shield = False
+                    self.powpunch = False
+                    self.jumpow = True
+                    power.drop = True
+                    self.catch = power
+                elif power.power == "punch":
+                    self.pow = True
+                    self.shield = False
+                    self.powpunch = True
+                    self.jumpow = False
+                    power.drop = True
+                    self.catch = power
