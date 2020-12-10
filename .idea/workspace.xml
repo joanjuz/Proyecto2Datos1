@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="fondo score" />
+    <list default="true" id="297ba62f-2f22-46fe-9782-0bef9f20c9bf" name="Default Changelist" comment="numeros" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +96,28 @@
       <option name="project" value="LOCAL" />
       <updated>1607458224687</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="piso">
+      <created>1607460320501</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607460320501</updated>
+    </task>
+    <task id="LOCAL-00007" summary="numeros">
+      <created>1607562219079</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607562219080</updated>
+    </task>
+    <task id="LOCAL-00008" summary="numeros">
+      <created>1607562279928</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607562279928</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,7 +136,9 @@
     <MESSAGE value="fondo instrucciones" />
     <MESSAGE value="fondo creditos" />
     <MESSAGE value="fondo score" />
-    <option name="LAST_COMMIT_MESSAGE" value="fondo score" />
+    <MESSAGE value="piso" />
+    <MESSAGE value="numeros" />
+    <option name="LAST_COMMIT_MESSAGE" value="numeros" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607453049599">
@@ -130,10 +153,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="178" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607452912914" />
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607458229389">
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2" timestamp="1607562283002">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607458229389" />
+    <state x="552" y="240" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607562283002" />
     <state x="984" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607452920975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
