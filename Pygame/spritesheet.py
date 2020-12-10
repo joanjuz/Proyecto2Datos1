@@ -45,3 +45,9 @@ class Spritesheet:
             return [pygame.image.load('Recursos/Plataforma/piso.png')]
         elif self.filename == "platform1":
             return [pygame.image.load('Recursos/Plataforma/plataforma1.png'), pygame.image.load('Recursos/Plataforma/plataforma2.png')]
+        elif self.filename =="shield":
+            return[pygame.image.load('Recursos/heart.png')]
+        elif self.filename == "jump":
+            return[pygame.image.load('Recursos/potion.png')]
+        elif self.filename == "punch":
+            return [pygame.image.load("Recursos/punch.png")]

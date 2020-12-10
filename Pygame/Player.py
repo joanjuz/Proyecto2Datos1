@@ -69,7 +69,13 @@ class player(object):
         self.FACING_LEFT = False
 
         ################
-
+        self.pow = False
+        self.shield = False
+        self.jumpow = False
+        self.powpunch = False
+        self.useshield = False
+        self.usejump = False
+        self.catch = None
 
 
     def draw(self, win):
@@ -165,13 +171,14 @@ class player(object):
                 self.rect.w = 40
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
-    def update(self,dt,players,platform):
+    def update(self,dt,players,platform,powers):
         self.horizontal_movement(dt)
         self.checkCollisionsx(players)
         self.checkCollisionspx(platform)
         self.vertical_movement(dt)
         self.checkCollisionsy(players)
         self.checkCollisionspy(platform)
+        self.checkCollisionspowers(powers)
 
     def horizontal_movement(self,dt):
         self.acceleration.x = 0
@@ -205,10 +212,11 @@ class player(object):
         if abs(self.vel.x) < .01: self.vel.x = 0
 
     def jump(self):
-        if self.on_ground:
+        if self.on_ground or self.usejump:
             self.isJump = True
             self.vel.y -= 8
             self.on_ground = False
+            self.usejump = False
     def get_hits(self,players):
         hits = []
         for player in players:
@@ -231,16 +239,21 @@ class player(object):
                         player.vel.x -= 0.25
             else:
                 if self.punch:
-                    if self.right:
-                        player.right = False
-                        player.left = True
-                        player.golpe = True
-                        player.vel.x += 40
+                    if not player.useshield:
+                        if self.right:
+                            player.right = False
+                            player.left = True
+                            player.golpe = True
+                            player.vel.x += 40
+                        else:
+                            player.left = False
+                            player.right = True
+                            player.golpe = True
+                            player.vel.x -= 40
                     else:
-                        player.left = False
-                        player.right = True
-                        player.golpe = True
-                        player.vel.x -= 40
+                        self.punch = False
+                        player.useshield = False
+
 
 
     def checkCollisionsy(self,players):
@@ -261,16 +274,21 @@ class player(object):
                     self.rect.bottom = self.position.y
             else:
                 if self.punch:
-                    if self.right:
-                        player.right = False
-                        player.left = True
-                        player.golpe = True
-                        player.vel.y -= 6
+                    if not player.useshield:
+                        if self.right:
+                            player.right = False
+                            player.left = True
+                            player.golpe = True
+                            player.vel.y -= 6
+                        else:
+                            player.left = False
+                            player.right = True
+                            player.golpe = True
+                            player.vel.y -= 6
                     else:
-                        player.left = False
-                        player.right = True
-                        player.golpe = True
-                        player.vel.y -= 6
+                        self.punch = False
+                        player.useshield = False
+
 
     def checkCollisionspx(self,platform):
         collisions = self.get_hits(platform)
@@ -296,3 +314,27 @@ class player(object):
                 self.vel.y = 0
                 self.position.y = plat.rect.bottom + self.rect.h
                 self.rect.bottom = self.position.y
+    def checkCollisionspowers(self,pows):
+        collisions = self.get_hits(pows)
+        for power in collisions:
+            if power.power == "shield":
+                self.pow = True
+                self.shield = True
+                self.powpunch = False
+                self.jumpow = False
+                power.drop = True
+                self.catch = power
+            elif power.power == "jump":
+                self.pow = True
+                self.shield = False
+                self.powpunch = False
+                self.jumpow = True
+                power.drop = True
+                self.catch = power
+            elif power.power == "punch":
+                self.pow = True
+                self.shield = False
+                self.powpunch = True
+                self.jumpow = False
+                power.drop = True
+                self.catch = power

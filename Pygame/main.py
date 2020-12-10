@@ -2,6 +2,8 @@ import pygame
 from Player import  player
 from spritesheet import Spritesheet
 from platform import platform
+from Powers import powers
+import random
 pygame.init()
 
 win = pygame.display.set_mode((1900, 1000))
@@ -33,6 +35,9 @@ def redrawGameWindow():
     piso.draw(win)
     plataform1.draw(win)
     platform2.draw(win)
+    pow1.draw(win)
+    pow2.draw(win)
+    pow3.draw(win)
     player2.draw(win)
     player1.draw(win)
     pygame.display.update()
@@ -47,6 +52,12 @@ player2 = player()
 player2.position.x = 600
 player2.position.y = 700
 
+pow1 = powers(random.choice(["shield"]), random.randint(100, 1800), 40)
+pow2 = powers(random.choice(["jump"]), random.randint(100, 1800), 40)
+pow3 = powers(random.choice(["punch"]), random.randint(100, 1800), 40)
+
+
+
 piso = platform(Platform1[0],450,860)
 plataform1 = platform(Platform2[0],1400,650)
 platform2 = platform(Platform2[1],200,650)
@@ -54,6 +65,7 @@ platform2 = platform(Platform2[1],200,650)
 run = True
 while run:
     dt = clock.tick(60) * .001 * TARGET_FPS
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -88,13 +100,33 @@ while run:
             elif event.key == pygame.K_i:
                 player2.jump()
             elif event.key == pygame.K_s:
-                player1.punchCount = 0
-                player1.punch = True
-                player1.standing = False
+                if player1.pow:
+                    if player1.powpunch:
+                        player1.punchCount = 0
+                        player1.punch = True
+                        player1.standing = False
+                        player1.pow = False
+                    elif player1.jumpow:
+                        player1.usejump = True
+                        player1.jump()
+                        player1.pow = False
+                    elif player1.shield:
+                        player1.useshield = True
+                        player1.pow = False
             elif event.key == pygame.K_k:
-                player2.punchCount = 0
-                player2.punch = True
-                player2.standing = False
+                if player2.pow:
+                    if player2.powpunch:
+                        player2.punchCount = 0
+                        player2.punch = True
+                        player2.standing = False
+                        player2.pow = False
+                    elif player2.jumpow:
+                        player2.usejump = True
+                        player2.jump()
+                        player2.pow = False
+                    elif player2.shield:
+                        player2.useshield = True
+                        player2.pow = False
         ############################################
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
@@ -122,8 +154,16 @@ while run:
                 if player2.isJump:
                     player2.vel.y *= .25
                     player2.isJump = False
-
-    player2.update(dt,[player1],[piso,platform2,plataform1])
-    player1.update(dt,[player2],[piso,platform2,plataform1])
+            elif event.key == pygame.K_s:
+                if player1.catch != None:
+                    player1.catch.drop = False
+            elif event.key == pygame.K_k:
+                if player2.catch !=None:
+                    player2.catch.drop = False
+    pow1.update(dt,[piso,platform2,plataform1])
+    pow2.update(dt, [piso, platform2, plataform1])
+    pow3.update(dt, [piso, platform2, plataform1])
+    player2.update(dt,[player1],[piso,platform2,plataform1],[pow1,pow2,pow3])
+    player1.update(dt,[player2],[piso,platform2,plataform1],[pow1,pow2,pow3])
     redrawGameWindow()
 pygame.quit()
