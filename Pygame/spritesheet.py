@@ -51,3 +51,7 @@ class Spritesheet:
             return[pygame.image.load('Recursos/potion.png')]
         elif self.filename == "punch":
             return [pygame.image.load("Recursos/punch.png")]
+        elif self.filename == "AVL":
+            return [pygame.image.load("Recursos/1.png"),pygame.image.load("Recursos/2.png"),pygame.image.load("Recursos/2.png"),pygame.image.load("Recursos/3.png"),
+                    pygame.image.load("Recursos/4.png"),pygame.image.load("Recursos/5.png"),pygame.image.load("Recursos/6.png"),pygame.image.load("Recursos/7.png"),
+                    pygame.image.load("Recursos/8.png"),pygame.image.load("Recursos/9.png"),pygame.image.load("Recursos/10.png")]

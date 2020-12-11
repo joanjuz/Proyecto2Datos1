@@ -5,7 +5,7 @@ from platform import platform
 from Powers import powers
 import random
 pygame.init()
-
+from Trees import tree
 win = pygame.display.set_mode((1900, 1000))
 
 pygame.display.set_caption("First Game")
@@ -25,13 +25,10 @@ Platform1 = P1.get_spritte()
 P2 = Spritesheet("platform1")
 Platform2 = P2.get_spritte()
 
-score = 0
 TARGET_FPS = 60
 
 def redrawGameWindow():
     win.blit(bg, (0, 0))
-    text = font.render('Score: ' + str(score), 1, (0, 0, 0))
-    win.blit(text, (350, 10))
     piso.draw(win)
     plataform1.draw(win)
     platform2.draw(win)
@@ -40,6 +37,7 @@ def redrawGameWindow():
     pow3.draw(win)
     player2.draw(win)
     player1.draw(win)
+    AVL.draw(win)
     pygame.display.update()
 
 
@@ -52,15 +50,16 @@ player2 = player()
 player2.position.x = 600
 player2.position.y = 700
 
-pow1 = powers(random.choice(["shield"]), random.randint(100, 1800), 40)
-pow2 = powers(random.choice(["jump"]), random.randint(100, 1800), 40)
-pow3 = powers(random.choice(["punch"]), random.randint(100, 1800), 40)
+pow1 = powers(random.choice(["shield"]), random.randint(100, 1500), 40)
+pow2 = powers(random.choice(["jump"]), random.randint(100, 1500), 40)
+pow3 = powers(random.choice(["punch"]), random.randint(100, 1500), 40)
+
+AVL = tree("AVL",random.randint(100,1500),40)
 
 
-
-piso = platform(Platform1[0],450,860)
-plataform1 = platform(Platform2[0],1400,650)
-platform2 = platform(Platform2[1],200,650)
+piso = platform(Platform1[0],250,860)
+plataform1 = platform(Platform2[0],1200,650)
+platform2 = platform(Platform2[1],100,650)
 
 run = True
 while run:
@@ -160,10 +159,11 @@ while run:
             elif event.key == pygame.K_k:
                 if player2.catch !=None:
                     player2.catch.drop = False
+    AVL.update(dt,[piso,platform2,plataform1])
     pow1.update(dt,[piso,platform2,plataform1])
     pow2.update(dt, [piso, platform2, plataform1])
     pow3.update(dt, [piso, platform2, plataform1])
-    player2.update(dt,[player1],[piso,platform2,plataform1],[pow1,pow2,pow3])
-    player1.update(dt,[player2],[piso,platform2,plataform1],[pow1,pow2,pow3])
+    player2.update(dt,[player1],[piso,platform2,plataform1],[pow1,pow2,pow3],[[AVL],"AVL"])
+    player1.update(dt,[player2],[piso,platform2,plataform1],[pow1,pow2,pow3],[[AVL],"AVL"])
     redrawGameWindow()
 pygame.quit()

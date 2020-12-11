@@ -171,7 +171,7 @@ class player(object):
                 self.rect.w = 40
                 pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
 
-    def update(self,dt,players,platform,powers):
+    def update(self,dt,players,platform,powers,TREE):
         self.horizontal_movement(dt)
         self.checkCollisionsx(players)
         self.checkCollisionspx(platform)
@@ -179,6 +179,7 @@ class player(object):
         self.checkCollisionsy(players)
         self.checkCollisionspy(platform)
         self.checkCollisionspowers(powers)
+        self.checkCollisionstrees(TREE)
 
     def horizontal_movement(self,dt):
         self.acceleration.x = 0
@@ -339,3 +340,7 @@ class player(object):
                     self.jumpow = False
                     power.drop = True
                     self.catch = power
+    def checkCollisionstrees(self,Tree):
+        collisions = self.get_hits(Tree[0])
+        for tree in collisions:
+            tree.drop = True
