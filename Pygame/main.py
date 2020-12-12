@@ -121,7 +121,7 @@ def game():
             label6 = pygame.font.SysFont('arial', 28).render(str(player2.vidas), 1, (0, 255, 0))
             label7 = pygame.font.SysFont('arial', 28).render(str(timer), 1, (0, 255, 0))
             if event.type == pygame.KEYDOWN or event.type == pygame.JOYBUTTONDOWN:
-                if event.key == pygame.K_a or event.button == button_keys['left_arrow']:
+                if event.key == pygame.K_a or event.button == button_keys['left_arrow'] or event.button == button_keys['x']:
                     player1.LEFT_KEY = True
                     player1.left = True
                     player1.right = False
@@ -149,7 +149,7 @@ def game():
                     player2.punch = False
                 elif event.key == pygame.K_i:
                     player2.jump()
-                elif event.key == pygame.K_s:
+                elif event.key == pygame.K_s or event.button ==  button_keys['square']:
                     if player1.pow:
                         if player1.powpunch:
                             player1.punchCount = 0
@@ -179,7 +179,7 @@ def game():
                             player2.pow = False
             ############################################
             if event.type == pygame.KEYUP or event.type == pygame.JOYBUTTONUP:
-                if event.key == pygame.K_a or event.button == button_keys['left_arrow']:
+                if event.key == pygame.K_a or event.button == button_keys['left_arrow'] or event.button == button_keys['x']:
                     player1.LEFT_KEY = False
                     player1.right = False
                     player1.standing = True
@@ -204,7 +204,7 @@ def game():
                     if player2.isJump:
                         player2.vel.y *= .25
                         player2.isJump = False
-                elif event.key == pygame.K_s:
+                elif event.key == pygame.K_s or event.button ==  button_keys['square']:
                     if player1.catch != None:
                         player1.catch.drop = False
                 elif event.key == pygame.K_k:
