@@ -77,9 +77,15 @@ class player(object):
         self.usejump = False
         self.catch = None
 
+        ######
+        self.vidas = 3
+
 
     def draw(self, win):
         pygame.draw.rect(win, (255, 0, 0), self.rect, 2)
+        if self.position.y >= 1000 and self.vidas > 0:
+            self.vidas -= 1
+            self.position.y = 10
         if self.isjumpcount + 1 >= 100:
             self.isjumpcount = 0
         if self.walkCount + 1 >= 18:

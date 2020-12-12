@@ -7,9 +7,10 @@ import random
 pygame.init()
 from Trees import tree
 
-
-
+timer = 0
+pygame.time.set_timer(pygame.USEREVENT,1000)
 def game():
+    global timer
     win = pygame.display.set_mode((1900, 1000))
 
     pygame.display.set_caption("First Game")
@@ -17,6 +18,16 @@ def game():
 
     clock = pygame.time.Clock()
     bg = pygame.image.load('Recursos/Backgroung/bg.png')
+    board = pygame.image.load('Recursos/Board.png')
+    label1 = pygame.font.SysFont('arial',28).render("Player1:", 1,(0,255,0))
+    label2 = pygame.font.SysFont('arial',28).render("Player2:", 1,(0,255,0))
+    label3 = pygame.font.SysFont('arial',28).render("Vidas:", 1,(0,255,0))
+    label4 = pygame.font.SysFont('arial',28).render("Vidas:", 1,(0,255,0))
+    label8 = pygame.font.SysFont('arial',28).render("Time: ",1,(0,255,0))
+
+    counter = 120
+
+
     # bulletSound = pygame.mixer.Sound('bullet.wav')
     # hitSound = pygame.mixer.Sound('hit.wav')
 
@@ -32,6 +43,18 @@ def game():
     TARGET_FPS = 60
     def redrawGameWindow():
         win.blit(bg, (0, 0))
+        win.blit(board, (1500, 0))
+        win.blit(label1,(1530,140))
+        win.blit(label2,(1530,550))
+        win.blit(label3,(1530,180))
+        win.blit(label4,(1530,630))
+        win.blit(label5,(1630,180))
+        win.blit(label6,(1630,630))
+
+        win.blit(label8,(1530,40))
+        win.blit(label7,(1600,40))
+
+
         piso.draw(win)
         plataform1.draw(win)
         platform2.draw(win)
@@ -41,6 +64,7 @@ def game():
         player2.draw(win)
         player1.draw(win)
         AVL.draw(win)
+
         pygame.display.update()
 
 
@@ -53,6 +77,7 @@ def game():
     player2 = player()
     player2.position.x = 600
     player2.position.y = 700
+
 
     pow1 = powers(random.choice(["shield"]), random.randint(100, 1500), 40)
     pow2 = powers(random.choice(["jump"]), random.randint(100, 1500), 40)
@@ -71,8 +96,16 @@ def game():
 
 
         for event in pygame.event.get():
+            if event.type == pygame.USEREVENT:
+                counter  -= 1
+                timer = str(counter).rjust(3) if counter > 0 else quit()
+            else:
+                clock.tick(60)
             if event.type == pygame.QUIT:
                 run = False
+            label5 = pygame.font.SysFont('arial', 28).render(str(player1.vidas), 1, (0, 255, 0))
+            label6 = pygame.font.SysFont('arial', 28).render(str(player2.vidas), 1, (0, 255, 0))
+            label7 = pygame.font.SysFont('arial', 28).render(str(timer), 1, (0, 255, 0))
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     player1.LEFT_KEY = True
