@@ -46,6 +46,7 @@ font = pygame.font.SysFont('comicsans', 30, True)
 player1 = player()
 player1.position.x = 500
 player1.position.y = 700
+player1.rect.y = player1.position.y
 player2 = player()
 player2.position.x = 600
 player2.position.y = 700
