@@ -71,18 +71,22 @@ def game():
         win.blit(label8,(1530,40))
         win.blit(label7,(1600,40))
 
-        win.blit(labelwin,(3,700))
 
 
-        piso.draw(win)
-        plataform1.draw(win)
-        platform2.draw(win)
-        pow1.draw(win)
-        pow2.draw(win)
-        pow3.draw(win)
-        player2.draw(win)
-        player1.draw(win)
-        AVL.draw(win)
+        if player1.vidas == 0:
+            win.blit(labelwin1, (300, 500))
+        elif player2.vidas == 0:
+            win.blit(labelwin, (300, 500))
+        else:
+            piso.draw(win)
+            plataform1.draw(win)
+            platform2.draw(win)
+            pow1.draw(win)
+            pow2.draw(win)
+            pow3.draw(win)
+            player2.draw(win)
+            player1.draw(win)
+            AVL.draw(win)
 
         pygame.display.update()
 
