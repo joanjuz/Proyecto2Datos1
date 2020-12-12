@@ -27,6 +27,9 @@ def game():
     label3 = pygame.font.SysFont('arial',28).render("Vidas:", 1,(0,255,0))
     label4 = pygame.font.SysFont('arial',28).render("Vidas:", 1,(0,255,0))
     label8 = pygame.font.SysFont('arial',28).render("Time: ",1,(0,255,0))
+    labelwin = pygame.font.SysFont('arial',100).render("PLAYER 1 is the WINNER!",1,(0,0,0))
+    labelwin1 = pygame.font.SysFont('arial',100).render("PLAYER 2 is the WINNER!",1,(0,0,0))
+
 
     counter = 120
 
@@ -68,6 +71,8 @@ def game():
         win.blit(label8,(1530,40))
         win.blit(label7,(1600,40))
 
+        win.blit(labelwin,(3,700))
+
 
         piso.draw(win)
         plataform1.draw(win)
@@ -108,7 +113,6 @@ def game():
     while run:
         dt = clock.tick(60) * .001 * TARGET_FPS
 
-
         for event in pygame.event.get():
             if event.type == pygame.USEREVENT:
                 counter  -= 1
@@ -120,20 +124,49 @@ def game():
             label5 = pygame.font.SysFont('arial', 28).render(str(player1.vidas), 1, (0, 255, 0))
             label6 = pygame.font.SysFont('arial', 28).render(str(player2.vidas), 1, (0, 255, 0))
             label7 = pygame.font.SysFont('arial', 28).render(str(timer), 1, (0, 255, 0))
-            if event.type == pygame.KEYDOWN or event.type == pygame.JOYBUTTONDOWN:
-                if event.key == pygame.K_a or event.button == button_keys['left_arrow'] or event.button == button_keys['x']:
+            if event.type == pygame.JOYBUTTONDOWN:
+                if event.button == button_keys['left_arrow']:
                     player1.LEFT_KEY = True
                     player1.left = True
                     player1.right = False
                     player1.standing = False
                     player1.punch = False
-                elif event.key == pygame.K_d or event.button == button_keys['right_arrow']:
+                if event.button == button_keys['right_arrow']:
                     player1.RIGHT_KEY = True
                     player1.left = False
                     player1.right = True
                     player1.standing = False
                     player1.punch = False
-                elif event.key == pygame.K_w  or event.button == button_keys['up_arrow']:
+                if event.button == button_keys['up_arrow']:
+                    player1.jump()
+                if event.button ==  button_keys['square']:
+                    if player1.pow:
+                        if player1.powpunch:
+                            player1.punchCount = 0
+                            player1.punch = True
+                            player1.standing = False
+                            player1.pow = False
+                        elif player1.jumpow:
+                            player1.usejump = True
+                            player1.jump()
+                            player1.pow = False
+                        elif player1.shield:
+                            player1.useshield = True
+                            player1.pow = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:#or event.button == button_keys['x']
+                    player1.LEFT_KEY = True
+                    player1.left = True
+                    player1.right = False
+                    player1.standing = False
+                    player1.punch = False
+                elif event.key == pygame.K_d:
+                    player1.RIGHT_KEY = True
+                    player1.left = False
+                    player1.right = True
+                    player1.standing = False
+                    player1.punch = False
+                elif event.key == pygame.K_w:
                     player1.jump()
                 elif event.key == pygame.K_j:
                     player2.LEFT_KEY = True
@@ -149,7 +182,7 @@ def game():
                     player2.punch = False
                 elif event.key == pygame.K_i:
                     player2.jump()
-                elif event.key == pygame.K_s or event.button ==  button_keys['square']:
+                elif event.key == pygame.K_s:
                     if player1.pow:
                         if player1.powpunch:
                             player1.punchCount = 0
@@ -178,17 +211,34 @@ def game():
                             player2.useshield = True
                             player2.pow = False
             ############################################
-            if event.type == pygame.KEYUP or event.type == pygame.JOYBUTTONUP:
-                if event.key == pygame.K_a or event.button == button_keys['left_arrow'] or event.button == button_keys['x']:
+            if event.type == pygame.JOYBUTTONUP:
+                if event.button == button_keys['left_arrow']:
                     player1.LEFT_KEY = False
                     player1.right = False
                     player1.standing = True
-                elif event.key == pygame.K_d or event.button == button_keys['right_arrow']:
+                if event.button == button_keys['right_arrow']:
                     player1.RIGHT_KEY = False
                     player1.LEFT_KEY = False
                     player1.left = False
                     player1.standing = True
-                elif event.key == pygame.K_w or event.button == button_keys['up_arrow']:
+                if event.button == button_keys['up_arrow']:
+                    if player1.isJump:
+                        player1.vel.y *= .25
+                        player1.isJump = False
+                if event.button ==  button_keys['square']:
+                    if player1.catch != None:
+                        player1.catch.drop = False
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    player1.LEFT_KEY = False
+                    player1.right = False
+                    player1.standing = True
+                elif event.key == pygame.K_d:
+                    player1.RIGHT_KEY = False
+                    player1.LEFT_KEY = False
+                    player1.left = False
+                    player1.standing = True
+                elif event.key == pygame.K_w:
                     if player1.isJump:
                         player1.vel.y *= .25
                         player1.isJump = False
@@ -204,7 +254,7 @@ def game():
                     if player2.isJump:
                         player2.vel.y *= .25
                         player2.isJump = False
-                elif event.key == pygame.K_s or event.button ==  button_keys['square']:
+                elif event.key == pygame.K_s:
                     if player1.catch != None:
                         player1.catch.drop = False
                 elif event.key == pygame.K_k:
