@@ -312,7 +312,7 @@ public class BTree {
     }
 
     public void Task(int a, int b) {
-        Stack<Integer> st = new Stack<>();
+        Stack<Integer> st = new Stack<Integer>();
         FindKeys(a, b, root, st);
         while (st.isEmpty() == false) {
             this.Remove(root, st.pop());

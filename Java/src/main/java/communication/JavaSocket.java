@@ -1,6 +1,6 @@
 package communication;
 
-import TreeTracker.Tracker;
+
 
 import java.net.Socket;
 import java.io.IOException;
@@ -30,14 +30,12 @@ public class JavaSocket {
         System.out.println("Server received: " + received_string);
 
         // String received message to Object
-        Message message = Jason.stringToObject(received_string);
+        communication.Message message = Jason.stringToObject(received_string);
         System.out.println("Tree: ");
         System.out.println(message.getTree_print());
 
         //Testing...
         if (!message.checkeo) {
-            message.tree_print = Tracker.obtenerInstancia().addNode(message.player, message.new_node, message.id);
-            message.win = Tracker.obtenerInstancia().checkWin(message.player, message.id);
         } else {
             // tiempo de challenge
         }

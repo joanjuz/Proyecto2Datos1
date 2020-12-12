@@ -17,7 +17,7 @@ public class Jason {
      * @param message
      * @return message_string
      */
-    public static String objectToString(Message message){
+    public static String objectToString(communication.Message message){
         String message_string = null;
         try {
             message_string = objectMapper.writeValueAsString(message);
@@ -34,11 +34,11 @@ public class Jason {
      * @param message_string
      * @return message
      */
-    public static Message stringToObject(String message_string){
-        Message message = null;
+    public static communication.Message stringToObject(String message_string){
+        communication.Message message = null;
         try {
             JsonNode messageNode = objectMapper.readTree(message_string);
-            message = objectMapper.treeToValue(messageNode, Message.class);
+            message = objectMapper.treeToValue(messageNode, communication.Message.class);
         }
         catch (JsonProcessingException e){
             logger.log(Level.SEVERE, "Error converting message to Card Object");
