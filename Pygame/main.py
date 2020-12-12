@@ -1,3 +1,6 @@
+import json
+import os
+
 import pygame
 from Player import  player
 from spritesheet import Spritesheet
@@ -27,6 +30,17 @@ def game():
 
     counter = 120
 
+    #Inicializar control
+    joysticks = []
+    for i in range(pygame.joystick.get_count()):
+        joysticks.append(pygame.joystick.Joystick(i))
+    for joystick in joysticks:
+        joystick.init()
+    with open(os.path.join("ps4_keys.json"),'r+') as file:
+        button_keys = json.load(file)
+
+    #analog keys
+    analog_keys = {0:0, 1:0, 2:0, 3:0, 4:-1, 5: -1}
 
     # bulletSound = pygame.mixer.Sound('bullet.wav')
     # hitSound = pygame.mixer.Sound('hit.wav')
@@ -106,20 +120,20 @@ def game():
             label5 = pygame.font.SysFont('arial', 28).render(str(player1.vidas), 1, (0, 255, 0))
             label6 = pygame.font.SysFont('arial', 28).render(str(player2.vidas), 1, (0, 255, 0))
             label7 = pygame.font.SysFont('arial', 28).render(str(timer), 1, (0, 255, 0))
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
+            if event.type == pygame.KEYDOWN or event.type == pygame.JOYBUTTONDOWN:
+                if event.key == pygame.K_a or event.button == button_keys['left_arrow']:
                     player1.LEFT_KEY = True
                     player1.left = True
                     player1.right = False
                     player1.standing = False
                     player1.punch = False
-                elif event.key == pygame.K_d:
+                elif event.key == pygame.K_d or event.button == button_keys['right_arrow']:
                     player1.RIGHT_KEY = True
                     player1.left = False
                     player1.right = True
                     player1.standing = False
                     player1.punch = False
-                elif event.key == pygame.K_w:
+                elif event.key == pygame.K_w  or event.button == button_keys['up_arrow']:
                     player1.jump()
                 elif event.key == pygame.K_j:
                     player2.LEFT_KEY = True
@@ -164,17 +178,17 @@ def game():
                             player2.useshield = True
                             player2.pow = False
             ############################################
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
+            if event.type == pygame.KEYUP or event.type == pygame.JOYBUTTONUP:
+                if event.key == pygame.K_a or event.button == button_keys['left_arrow']:
                     player1.LEFT_KEY = False
                     player1.right = False
                     player1.standing = True
-                elif event.key == pygame.K_d:
+                elif event.key == pygame.K_d or event.button == button_keys['right_arrow']:
                     player1.RIGHT_KEY = False
                     player1.LEFT_KEY = False
                     player1.left = False
                     player1.standing = True
-                elif event.key == pygame.K_w:
+                elif event.key == pygame.K_w or event.button == button_keys['up_arrow']:
                     if player1.isJump:
                         player1.vel.y *= .25
                         player1.isJump = False
